@@ -1,18 +1,14 @@
-
-
 <br />
 
 <div align="center">
-
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/The-PR-Agent/pr-agent/main/docs/static/img/logo-dark.png" width="330">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/The-PR-Agent/pr-agent/main/docs/static/img/logo-light.png" width="330">
   <img src="https://raw.githubusercontent.com/The-PR-Agent/pr-agent/main/docs/static/img/logo-light.png" alt="logo" width="330">
-
 </picture>
 <br>
-The Original Open-Source PR Reviewer
+Orijinal Açık Kaynaklı PR İnceleme Aracı
 <br><br>
 <a href="https://github.com/the-pr-agent/pr-agent/commits/main">
 <img alt="GitHub" src="https://img.shields.io/github/last-commit/the-pr-agent/pr-agent/main?style=for-the-badge" height="20">
@@ -21,51 +17,48 @@ The Original Open-Source PR Reviewer
 
 ---
 
- This repository contains the open-source PR Agent Project.
- It is not the Qodo offering for open-source projects.
+Bu depo, açık kaynaklı PR-Agent projesini içerir. Qodo'nun açık kaynak projelere sunduğu ürün değildir.
 
-PR-Agent is an open-source, AI-powered code review agent and a community-maintained legacy project of Qodo. It is distinct from Qodo's primary AI code review offering, which provides a feature-rich, context-aware experience. Qodo offers a free version for open-source projects and integrates seamlessly with GitHub, GitLab, Bitbucket, and Azure DevOps for high-quality automated reviews.
+PR-Agent, yapay zekâ destekli açık kaynaklı bir kod inceleme aracıdır ve Qodo'nun topluluk tarafından sürdürülen eski bir projesidir. Qodo'nun daha kapsamlı özelliklere sahip birincil yapay zekâ kod inceleme ürününden farklıdır.
 
+## Sponsorlar
 
-## Sponsors
-
-PR-Agent is a community-maintained open-source project, with its ongoing development supported by our sponsors. If you'd like to support the project, consider [becoming a sponsor](https://github.com/sponsors/naorpeled).
+PR-Agent, geliştirilmesi sponsorlarımızın desteğiyle sürdürülen topluluk odaklı bir açık kaynak projesidir. Projeyi desteklemek isterseniz [sponsor olmayı](https://github.com/sponsors/qodo) değerlendirebilirsiniz.
 
 <p align="center">
-  <h3 align="center">🥇 Gold Sponsor</h3>
+  <h3 align="center">🥇 Altın Sponsor</h3>
 </p>
 
 <p align="center">
   <a target="_blank" href="https://www.qodo.ai/">
-    <img alt="Qodo — Gold sponsor" src="https://www.qodo.ai/wp-content/uploads/2025/03/qodo-logo.svg" width="150">
+    <img alt="Qodo — Altın sponsor" src="https://www.qodo.ai/wp-content/uploads/2025/03/qodo-logo.svg" width="150">
   </a>
 </p>
 
 <p align="center">
-  <a target="_blank" href="https://www.qodo.ai/solutions/open-source/">Free version of Qodo for open-source projects</a>
+  <a target="_blank" href="https://www.qodo.ai/solutions/open-source/">Açık kaynak projeler için Qodo'nun ücretsiz sürümü</a>
 </p>
 
+## İçindekiler
 
-## Table of Contents
+- [Başlarken](#başlarken)
+- [Neden PR-Agent?](#neden-pr-agent)
+- [Özellikler](#özellikler)
+- [Kullanım Örneği](#kullanım-örneği)
+- [Nasıl Çalışır?](#nasıl-çalışır)
+- [Veri Gizliliği](#veri-gizliliği)
+- [Katkıda Bulunma](#katkıda-bulunma)
 
-- [Getting Started](#getting-started)
-- [Why Use PR-Agent?](#why-use-pr-agent)
-- [Features](#features)
-- [See It in Action](#see-it-in-action)
-- [How It Works](#how-it-works)
-- [Data Privacy](#data-privacy)
-- [Contributing](#contributing)
-
-## Getting Started
+## Başlarken
 
 > [!NOTE]
-> **Docker Hub namespace migration.** Releases `0.34.2` and later are published under [`pragent/pr-agent`](https://hub.docker.com/r/pragent/pr-agent). Older releases (up to and including `v0.31`) remain available at the legacy [`codiumai/pr-agent`](https://hub.docker.com/r/codiumai/pr-agent) namespace as a frozen archive — no new images are pushed there. Update any pinned `image:` / `docker pull` / `uses: docker://` references when upgrading to `0.34.2+`.
+> **Docker Hub ad alanı değişikliği.** `0.34.2` ve sonraki sürümler [`pragent/pr-agent`](https://hub.docker.com/r/pragent/pr-agent) altında yayımlanır. `v0.31` ve öncesi dahil olmak üzere daha eski sürümler önceki ad alanını kullanır.
 
-### 🚀 Quick Start for PR-Agent
+### 🚀 PR-Agent için Hızlı Başlangıç
 
-#### 1. GitHub Action (Recommended)
+#### 1. GitHub Action (Önerilen)
 
-Add automated PR reviews to your repository with a simple workflow file:
+Basit bir iş akışı dosyasıyla deponuza otomatik PR incelemeleri ekleyin:
 
 ```yaml
 # .github/workflows/pr-agent.yml
@@ -83,64 +76,63 @@ jobs:
         OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
-[Full GitHub Action setup guide](https://docs.pr-agent.ai/installation/github/#run-as-a-github-action)
+[Tam GitHub Action kurulum kılavuzu](https://docs.pr-agent.ai/installation/github/#run-as-a-github-action)
 
-#### 2. CLI Usage (Local Development)
+#### 2. CLI Kullanımı (Yerel Geliştirme)
 
-Run PR-Agent locally on your repository:
+PR-Agent'i deponuzda yerel olarak çalıştırın:
 
 ```bash
 pip install "pr-agent[github]"
 export OPENAI_KEY=your_key_here
 pr-agent --pr_url https://github.com/owner/repo/pull/123 review
 ```
-Git provider SDKs are optional extras: install the one for your provider ([list](https://docs.pr-agent.ai/installation/locally/#using-pip-package)), or `pr-agent[all]` for every integration.
-[Complete CLI setup guide](https://docs.pr-agent.ai/usage-guide/automations_and_usage/#local-repo-cli)
+Git sağlayıcılarının SDK'ları isteğe bağlı ek paketlerdir: kullandığınız sağlayıcıya ait paketi ([liste](https://docs.pr-agent.ai/installation/locally/#using-pip-package)) veya tüm entegrasyonlar için `pr-agent[all]` paketini kurun.
+[Tam CLI kurulum kılavuzu](https://docs.pr-agent.ai/usage-guide/automations_and_usage/#local-repo-cli)
 
-#### 3. Other Platforms
+#### 3. Diğer Platformlar
 
-- [GitLab webhook setup](https://docs.pr-agent.ai/installation/gitlab/)
-- [BitBucket app installation](https://docs.pr-agent.ai/installation/bitbucket/)
-- [Azure DevOps setup](https://docs.pr-agent.ai/installation/azure/)
+- [GitLab webhook kurulumu](https://docs.pr-agent.ai/installation/gitlab/)
+- [Bitbucket uygulama kurulumu](https://docs.pr-agent.ai/installation/bitbucket/)
+- [Azure DevOps kurulumu](https://docs.pr-agent.ai/installation/azure/)
 
-## News and Updates
+## Haberler ve Güncellemeler
 
-Full notes for every release are on the [Releases page](https://github.com/the-pr-agent/pr-agent/releases).
+Her sürümün ayrıntılı notları [Sürümler sayfasında](https://github.com/the-pr-agent/pr-agent/releases) yer alır.
 
+## Neden PR-Agent?
 
-## Why Use PR-Agent?
+### 🎯 Gerçek Geliştirme Ekipleri için Tasarlandı
 
-### 🎯 Built for Real Development Teams
+**Hızlı ve Ekonomik**: Her araç (`/review`, `/improve`, `/ask`) tek bir LLM çağrısı kullanır (yaklaşık 30 saniye, düşük maliyet).
 
-**Fast & Affordable**: Each tool (`/review`, `/improve`, `/ask`) uses a single LLM call (~30 seconds, low cost)
+**Her Boyutta PR'ı İşler**: [PR sıkıştırma stratejimiz](https://docs.pr-agent.ai/core-abilities/compression_strategy/) hem küçük hem de büyük PR'ları etkili şekilde işler.
 
-**Handles Any PR Size**: Our [PR Compression strategy](https://docs.pr-agent.ai/core-abilities/compression_strategy/) effectively processes both small and large PRs
+**Kolayca Özelleştirilebilir**: JSON tabanlı istemler, [yapılandırma dosyaları](pr_agent/settings/configuration.toml) üzerinden inceleme kategorilerini ve davranışını kolayca özelleştirmenizi sağlar.
 
-**Highly Customizable**: JSON-based prompting allows easy customization of review categories and behavior via [configuration files](pr_agent/settings/configuration.toml)
+**Platform Bağımsız**:
+- **Git sağlayıcıları**: GitHub, GitLab, Bitbucket, Azure DevOps, Gitea
+- **Dağıtım**: CLI, GitHub Actions, Docker, kendi sunucunuzda barındırma, webhook'lar
+- **Yapay zekâ modelleri**: OpenAI GPT, Anthropic Claude, Google Gemini, DeepSeek, Mistral ve LiteLLM üzerinden erişilebilen diğer modeller (Azure OpenAI, AWS Bedrock, Vertex AI, Databricks, OpenRouter, Ollama ve daha fazlası)
 
-**Platform Agnostic**:
-- **Git Providers**: GitHub, GitLab, BitBucket, Azure DevOps, Gitea
-- **Deployment**: CLI, GitHub Actions, Docker, self-hosted, webhooks
-- **AI Models**: OpenAI GPT, Anthropic Claude, Google Gemini, DeepSeek, Mistral, and any other model reachable through LiteLLM (Azure OpenAI, AWS Bedrock, Vertex AI, Databricks, OpenRouter, Ollama, and more) — see [Changing a model](https://docs.pr-agent.ai/usage-guide/changing_a_model/)
+**Açık Kaynak Avantajları**:
+- Verileriniz ve altyapınız üzerinde tam denetim
+- İstemleri ve davranışı ekibinizin ihtiyaçlarına göre özelleştirme
+- Bir satıcıya bağımlı olmama
+- Topluluk odaklı geliştirme
 
-**Open Source Benefits**:
-- Full control over your data and infrastructure
-- Customize prompts and behavior for your team's needs
-- No vendor lock-in
-- Community-driven development
-
-## Features
+## Özellikler
 
 <div style="text-align:left;">
 
-See the current [feature and git provider support matrix](https://docs.pr-agent.ai/overview/supported_platforms/) in the PR-Agent documentation.
+Güncel [özellik ve Git sağlayıcısı destek matrisini](https://docs.pr-agent.ai/overview/supported_platforms/) PR-Agent belgelerinde görebilirsiniz.
 
-⚠️ `/help_docs` is temporarily disabled since `v0.36.1` pending a fix for a credential-exposure issue ([#2445](https://github.com/the-pr-agent/pr-agent/issues/2445)).
+⚠️ `/help_docs`, kimlik bilgilerini açığa çıkarma sorununa yönelik düzeltme beklediği için `v0.36.1` sürümünden bu yana geçici olarak devre dışıdır ([#2445](https://github.com/the-pr-agent/pr-agent/issues/2445)).
 
-[//]: # (- Support for additional git providers is described in [here]&#40;./docs/Full_environments.md&#41;)
+[//]: # (- Ek git sağlayıcılarına verilen destek [burada]&#40;./docs/Full_environments.md&#41; açıklanmıştır.)
 ___
 
-## See It in Action
+## Kullanım Örneği
 
 </div>
 <h4><a href="https://github.com/the-pr-agent/pr-agent/pull/530">/describe</a></h4>
@@ -172,63 +164,62 @@ ___
 
 <hr>
 
-### Usage Examples
+### Kullanım Örnekleri
 
-PR-Agent tools run as a comment on a PR or from the CLI. A few common ones:
+PR-Agent araçlarını bir PR'a yorum olarak ya da CLI üzerinden çalıştırabilirsiniz. Sık kullanılan birkaç örnek:
 
 ```bash
-# Comment on a PR (GitHub/GitLab/Bitbucket/…):
+# PR üzerinde yorum olarak (GitHub/GitLab/Bitbucket/…):
 /describe
 /review
 /improve
-/ask "What does this PR change?" # free-text Q&A about the PR
+/ask "Bu PR neyi değiştiriyor?" # PR hakkında serbest metinle soru-cevap
 
-# Issue-scoped commands run on an issue instead of a PR:
-/similar_issue # find similar issues in the repository
+# Sorun (issue) kapsamındaki komutlar PR yerine bir issue üzerinde çalışır:
+/similar_issue # depodaki benzer issue'ları bul
 
-# Or locally via the CLI:
+# Ya da yerel olarak CLI üzerinden:
 pr-agent --pr_url <PR_URL> review
 pr-agent --issue_url <ISSUE_URL> similar_issue
 ```
 
-See the [Tools docs](https://docs.pr-agent.ai/tools/#usage-examples) for the full list of tools with example commands, and each tool's page for screenshots and options.
+Tüm araçların örnek komutlarla listesi için [Araçlar belgelerine](https://docs.pr-agent.ai/tools/#usage-examples), ekran görüntüleri ve seçenekler için her aracın kendi sayfasına bakın.
 
 <hr>
 
-## How It Works
+## Nasıl Çalışır?
 
-The following diagram illustrates PR-Agent tools and their flow:
+Aşağıdaki şema PR-Agent araçlarını ve iş akışlarını gösterir:
 
-![PR-Agent Tools](https://raw.githubusercontent.com/The-PR-Agent/pr-agent/main/docs/static/img/diagram-v0.9.png)
+![PR-Agent Araçları](https://raw.githubusercontent.com/The-PR-Agent/pr-agent/main/docs/static/img/diagram-v0.9.png)
 
-## Data Privacy
+## Veri Gizliliği
 
-### Self-hosted PR-Agent
+### Kendi Sunucunuzda Barındırılan PR-Agent
 
-- If you host PR-Agent with your OpenAI API key, it is between you and OpenAI. You can read their API data privacy policy here:
+- PR-Agent'i kendi OpenAI API anahtarınızla barındırıyorsanız, veriler sizinle OpenAI arasındadır. OpenAI'ın API veri gizliliği politikasını buradan okuyabilirsiniz:
 https://openai.com/enterprise-privacy
 
-## Contributing
+## Katkıda Bulunma
 
-To contribute to the project, get started by reading our [Contributing Guide](https://github.com/the-pr-agent/pr-agent/blob/main/CONTRIBUTING.md).
+Projeye katkıda bulunmak için [Katkıda Bulunma Kılavuzu'nu](https://github.com/the-pr-agent/pr-agent/blob/main/CONTRIBUTING.md) okuyarak başlayın.
 
-For local verification, run `PYTHONPATH=. uv run pytest` from the repository root; it discovers the unit-test suite under `tests/unittest` by default. End-to-end tests under `tests/e2e_tests` require provider credentials and should be invoked explicitly, for example `PYTHONPATH=. uv run pytest tests/e2e_tests/test_github_app.py`.
+Yerel doğrulama için deponun kök dizininde `PYTHONPATH=. uv run pytest` komutunu çalıştırın; bu komut varsayılan olarak `tests/unittest` altındaki birim testlerini bulur. `tests/e2e_tests` altındaki uçtan uca testler ortam değişkenleriyle sağlanan kimlik bilgilerini gerektirir.
 
+## PR-Agent için Büyük Haber
 
-## Big News for PR-Agent
+PR-Agent'in artık yeni bir yuvası var!
 
-PR-Agent has a new home!
+Qodo, yıllarca toplulukla birlikte bu aracı geliştirdikten sonra PR-Agent'i açık kaynak topluluğuna bağışladı. Bundan sonra neler olacağını görmek için heyecanlıyız.
 
-After years of building this tool alongside the community, Qodo has donated PR-Agent to the open-source community - and we couldn't be more excited about what comes next.
+Proje artık GitHub'daki PR-Agent organizasyonunda yer alıyor, tamamen topluluğa ait ve katkılara ve yeni bakım sorumlularına açık.
 
-The project now lives in the PR-Agent org on GitHub, is fully community-owned, and is open for contributions and additional maintainers.
+Diğer değişiklikler:
+- Belgeler [docs.pr-agent.ai](https://docs.pr-agent.ai/) adresine taşındı.
+- PR-Agent'in kurumsal sürümü olan barındırılan Qodo Merge (Qodo 1.0), yeniden markalandı ve kapsamlı bir yapay zekâ kod inceleme platformu olan Qodo'ya (Qodo 2.0) dönüştü.
 
-What else changed:
-- Docs moved to - [docs.pr-agent.ai](https://docs.pr-agent.ai/)
-- Qodo Merge (Qodo 1.0), the hosted URL, which was the enterprise version of PR-Agent, has been rebranded and evolved into Qodo (Qodo 2.0), a full AI code review platform.
+## ❤️ Topluluk
 
-## ❤️ Community
+Bu açık kaynak sürümü, modern yapay zekâ destekli kod iş birliğinin öncüsü Qodo'nun topluluğa katkısı olarak burada kalmaya devam ediyor. Bunu paylaşmaktan ve dünya çapındaki geliştiricilere ilham vermekten gurur duyuyoruz.
 
-This open-source release remains here as a community contribution from Qodo — the origin of modern AI-powered code collaboration. We’re proud to share it and inspire developers worldwide.
-
-The project now has its first external maintainer, Naor ([@naorpeled](https://github.com/naorpeled)), and is currently in the process of being donated to an open-source foundation.
+Projenin ilk harici bakım sorumlusu Naor'dur ([@naorpeled](https://github.com/naorpeled)); proje şu anda bir açık kaynak vakfına bağışlanma sürecindedir.
